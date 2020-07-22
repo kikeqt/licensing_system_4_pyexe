@@ -104,9 +104,9 @@ class Signer(License_Verifier):
 
 if __name__ == '__main__':
     # This section is for debugging only
-    from os import system
-    system('erase *.pem')
-    system('erase *.lic')
+    # from os import system
+    # system('erase *.pem')
+    # system('erase *.lic')
     
     # You should enter this value in some other way
     password = b'Replace this key'
