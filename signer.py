@@ -11,6 +11,36 @@ from license_verifier import License_Verifier
 
 
 class Signer(License_Verifier):
+    _cipher = None
+    
+    def __init__(self, key_to_the_file, external_object=None):
+        # We pass the object for communication with graphic interface
+        self._external_object = external_object
+        
+        self._config(key_to_the_file)
+        
+        self._cipher = AES.new(self._key_file.digest(),
+                               AES.MODE_OCB, nonce=self._nonce)
+        self.__generate_keys()
+        
+        self._cipher = AES.new(self._key_file.digest(),
+                               AES.MODE_OCB, nonce=self._nonce)
+        # Illustrative example, but you should enter the public and private variables directly in the self._public_key and self._private_key
+        self._load_key_files()
+        # I recommend this way
+        # self._public_key = b'Here you should enter the contents of the public key'
+        # self._private_key = b'Here you should enter the contents of the private key'
+        
+        self.__make_license_file()
+    
+    def _config(self, key_to_the_file):
+        super()._config()
+        
+        # Preparing keys
+        self._key_file = SHA256.new()
+        self._key_file.update(key_to_the_file)
+        self._nonce = self._key_file.digest()[:15]
+    
     def __generate_keys(self):
         if not exists(self._public_key_file):
             self._add_2_status("Generating keys")
@@ -67,26 +97,18 @@ class Signer(License_Verifier):
             
             else:
                 self._add_2_status(
-                    "\tFatal error: License cannot be validatedy")
-    
-    def __init__(self, key_to_the_file):
-        print('Constructor de signer')
-        self._config(key_to_the_file)
-        
-        self._cipher = AES.new(self._key_file.digest(),
-                               AES.MODE_OCB, nonce=self._nonce)
-        self.__generate_keys()
-        
-        self._cipher = AES.new(self._key_file.digest(),
-                               AES.MODE_OCB, nonce=self._nonce)
-        self._load_key_files()
-        
-        self.__make_license_file()
+                    "\tFatal error: License cannot be validated")
+        else:
+            self._add_2_status("Error: The license file already exists")
     
 
 if __name__ == '__main__':
+    # This section is for debugging only
     from os import system
     system('erase *.pem')
     system('erase *.lic')
+    
+    # You should enter this value in some other way
     password = b'Replace this key'
-    license = Signer(password)
+    
+    license_maker = Signer(password)

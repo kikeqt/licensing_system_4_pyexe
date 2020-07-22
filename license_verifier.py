@@ -4,12 +4,15 @@ from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
+from datetime import datetime
 from os.path import exists
+import tkinter as tk
+
 from id_hardware import Id_Hardware
 
 
 class License_Verifier(object):
-    _cipher = None
+    
     _key_file = None
     _license_file = ""
     _nonce = None
@@ -18,27 +21,43 @@ class License_Verifier(object):
     _public_key = None
     _public_key_file = "public.pem"
     _status = ""
+    _external_object = None
     
-    def __init__(self, key_to_the_file):
-        print('Constructor de license_verifier')
-        self._config(key_to_the_file)
+    def __init__(self, external_object=None):
+        # We pass the object for communication with graphic interface
+        self._external_object = external_object
         
-        self._cipher = AES.new(self._key_file.digest(), 
-                               AES.MODE_OCB, nonce=self._nonce)
+        self._config()
+        
+        # Illustrative example, but you should enter the public key directly in
+        # the variable self._public_key
         self._load_key_files()
-        
-    def _config(self, key_to_the_file):
+        # I recommend this way
+        # self._public_key = b'Here you should enter the contents of the public key'
+    
+    def _config(self):
         self._id_hardware = Id_Hardware()
         self._license_file = f'{self._id_hardware.get_hostname.decode()}.lic'
-
-        # Preparing keys
-        self._key_file = SHA256.new()
-        self._key_file.update(key_to_the_file)
-        self._nonce = self._key_file.digest()[:15]
     
     def _add_2_status(self, message):
         # Module for communication with graphic interface
-        print(message)
+        type_interface = str(type(self._external_object))
+        
+        time_stamp = datetime.now().strftime("%y/%m/%d %H:%M:%S.%f")[:-4]
+        
+        if type_interface == "<class 'NoneType'>":
+            print(f"{time_stamp}  {message}")
+            
+        elif type_interface == "<class 'tkinter.Listbox'>":
+            self._external_object.insert(tk.END, f"{time_stamp}  {message}")
+
+        elif type_interface == "<class 'tkinter.Text'>":
+            self._external_object.insert(tk.END, f"{time_stamp}  {message}\n")
+        
+        else:
+            print(f'Fatal error: How to use this object {type(self._external_object)}')
+            exit()
+	
         self._status += message
         
     def _load_key_files(self):
@@ -80,8 +99,7 @@ class License_Verifier(object):
 
 
 if __name__ == '__main__':
-    password = b'Replace this key'
-    license = License_Verifier(password)
+    license = License_Verifier()
     
     if license.check_license():
         print('Licencia valida')
