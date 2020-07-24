@@ -70,34 +70,39 @@ class Signer(License_Verifier):
         self._add_2_status("Loading private key")
         
         with open(self._private_key_file, "rb") as file:
-            ciphertext = file.read()
-            data = self._cipher.decrypt(ciphertext)
-            data = data[: -data[-1]]
-            private_key = data
-            self._private_key = private_key.decode()
+            self._private_key = file.read()
             
         self._add_2_status("\tSuccessfully")
     
     def __make_license_file(self):
         if not exists(self._license_file):
             self._add_2_status("Building license file")
-            rsa_key = RSA.importKey(self._private_key)
-            signer = PKCS1_v1_5.new(rsa_key)
+            data = self._cipher.decrypt(self._private_key)
+            data = data[: -data[-1]]
+            private_key = data
             
-            data = self._id_hardware.__str__().encode()
-            digest = SHA256.new(b64encode(data))
+            try:
+                self._private_key = private_key.decode()
+                
+                rsa_key = RSA.importKey(private_key)
+                signer = PKCS1_v1_5.new(rsa_key)
+                
+                data = self._id_hardware.__str__().encode()
+                digest = SHA256.new(b64encode(data))
+                
+                signature = b64encode(signer.sign(digest))
+                
+                with open(self._license_file, "w") as file_out:
+                    file_out.write(signature.decode())
             
-            signature = b64encode(signer.sign(digest))
-            
-            with open(self._license_file, "w") as file_out:
-                file_out.write(signature.decode())
-        
-            if self.check_license():
-                self._add_2_status("\tSuccessfully")
-            
-            else:
-                self._add_2_status(
-                    "\tFatal error: License cannot be validated")
+                if self.check_license():
+                    self._add_2_status("\tSuccessfully")
+                
+                else:
+                    self._add_2_status(
+                        "\tFatal error: License cannot be validated")
+            except:
+                self._add_2_status("\tWrong key")
         else:
             self._add_2_status("Error: The license file already exists")
     
