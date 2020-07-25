@@ -1,3 +1,4 @@
+__version__ = "$Version: 1.0.0"
 
 from subprocess import Popen, PIPE
 from platform import node

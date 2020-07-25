@@ -1,3 +1,5 @@
+__version__ = "$Version: 1.0.0"
+
 from base64 import b64encode
 from base64 import b64decode
 from Crypto.Cipher import AES
