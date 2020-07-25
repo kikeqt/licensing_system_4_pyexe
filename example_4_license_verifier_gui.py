@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 0.0.1"
 
 import tkinter as tk
 from tkinter import ttk
