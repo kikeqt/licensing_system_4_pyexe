@@ -130,3 +130,5 @@ dmypy.json
 *.pem
 *.lic
 pretty_codde.cmd
+pyvenv.cfg
+.Scripts/
