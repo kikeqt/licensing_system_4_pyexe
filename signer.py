@@ -7,7 +7,6 @@ from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 from os.path import exists
-from id_hardware import Id_Hardware
 
 from license_verifier import License_Verifier
 

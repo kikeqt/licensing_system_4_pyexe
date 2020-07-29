@@ -2,7 +2,6 @@ __version__ = "$Version: 0.0.1"
 
 from base64 import b64encode
 from base64 import b64decode
-from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
