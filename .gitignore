@@ -131,4 +131,4 @@ dmypy.json
 *.lic
 pretty_codde.cmd
 pyvenv.cfg
-.Scripts/
+/Scripts
