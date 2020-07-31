@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 0.1.0"
 
 from base64 import b64encode
 from base64 import b64decode
@@ -10,6 +10,7 @@ from os.path import exists
 import tkinter as tk
 
 from id_hardware import Id_Hardware
+from locksmith import Locksmith
 
 
 class License_Verifier(object):
@@ -30,11 +31,15 @@ class License_Verifier(object):
         
         self._config()
         
-        # Illustrative example, but you should enter the public key directly in
+        self._locksmith = Locksmith()
+        
+        # BEGIN Illustrative example, but you should enter the public key directly in
         # the variable self._public_key
         self._load_key_files()
+        # END Illustrative example
+        
         # I recommend this way
-        # self._public_key = b'Here you should enter the contents of the public key'
+        # self._locksmith.set_public_key = b'-----BEGIN RSA PRIVATE KEY-----\n...'
     
     def _config(self):
         self._id_hardware = Id_Hardware()
@@ -63,10 +68,8 @@ class License_Verifier(object):
         
     def _load_key_files(self):
         self._add_2_status("Loading public key")
-
-        with open(self._public_key_file, "rb") as file:
-            public_key = file.read()
-            self._public_key = public_key.decode()
+        
+        self._locksmith.load_public_key(self._public_key_file)
 
         self._add_2_status("\tSuccessfully")
 
@@ -82,7 +85,7 @@ class License_Verifier(object):
             
             data = self._id_hardware.__str__().encode()
 
-            rsa_key = RSA.importKey(self._public_key)
+            rsa_key = RSA.importKey(self._locksmith.get_public_key)
             signer = PKCS1_v1_5.new(rsa_key)
             digest = SHA256.new(b64encode(data))
 
@@ -100,6 +103,9 @@ class License_Verifier(object):
 
 
 if __name__ == '__main__':
+    from os import system
+    system('CLS')
+    
     license = License_Verifier()
     
     if license.check_license():
