@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.0.1"
+__version__ = "$Version: 1.0.0"
 
 import tkinter as tk
 from tkinter import ttk
@@ -31,7 +31,7 @@ class Application(ttk.Frame):
         self.pack()
         
     def run(self):
-        key = self.text_key.get().encode()
+        key = self.text_key.get()
         license_maker = Signer(key, self.list_log)
 
 
