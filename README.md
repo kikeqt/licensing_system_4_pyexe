@@ -10,45 +10,45 @@ Examples of use in each file .py
 pip install pycryptodome
 ```
 
-## Instalación
-Descarge el código fuente de este proyecto en el directorio raíz del proyecto python que se desea restringir.
+## Installation
+Download the source code of this project into the root directory of the python project you want to restrict.
 
-O clone el proyecto con git
+Or clone the project with git
 ```
 git clone https://github.com/kikeqt/licensing_system_4_pyexe.git
 ```
 
-## Funcionamiento
-1. ***signer.py*** genera una firma electronica del equipo.  Si no se han generado ***private.pem*** y ***public.pem*** generará automaticamente una vez que se defina la contraseña para proteger la clave privada, por ejemplo ***example_4_signer_gui.py***.
-2. ***license\_verifier.py*** verifica la firma
+## How it works
+1. ***signer.py*** generates an electronic signature of the equipment.  If ***private.pem*** and ***public.pem*** have not been generated, they will be generated automatically once the password is set to protect the private key, for example ***example_4_signer_gui.py***.
+2. ***license\_verifier.py*** verify the signature
 
-En el proceso se crean 3 archivos ***private.pem***, ***public.pem*** y ***\<hostname\>.lic***.
+In the process 3 files are created ***private.pem***, ***public.pem*** and ***\<hostname\>.lic***.
 
-***private.pem*** contiene la clave privada y cifrada con AES en modo OCB.
+ - ***private.pem*** contains the private key and is encrypted with AES in OCB mode.
 
-***public.pem*** contiene la clave pública.
+ - ***public.pem*** contains the public key
 
-***\<hostname\>.lic*** contiene datos del equipo firmado digitalmente, con la clave privada
+ - ***\<hostname\>.lic*** contains digitally signed equipment data, with the private key
 
-**Observaciones:**
-* Si desea cambiar los nomres de los archivos, estos estan definidos en ***license_verifier.py***, líneas_ `22`, `24` y `46`.
+**Remarks:**
+* If you want to change the file names, they are defined in ***license_verifier.py***, lines_ '22', '24' and '46'.
 
-* Si en lugar de abrir las llaves públicas y privadas desde un archivo, prefiere almacenarlas en el código, encontrará marcado donde debe hacer el cambio, ***license_verifier.py*** \[`42`\] y ***signer.py*** \[`35`,`36`\].
+* If instead of opening the public and private keys from a file, you prefer to store them in the code, you will find marked where you should make the change, ***license_verifier.py*** [`42`\] and ***signer.py*** [`35`,`36`\].
 
-## Uso recomendado
-1. Deberá ejecutar en el equipo que se va a autorizar ***signer.py*** o ***example_4_signer_gui.py***, lo que generará el archivo de licencia correspondiente ***\<hostname\>.lic***.
-    * En ***signer.py***, usted deberá cambiar la contraseña de la clave privada, en línea `98`, _se suguiere en su lugar implementar un método de entrada, por ejemplo:_
+## Recommended use
+1. You will need to run ***signer.py*** or ***example_4_signer_gui.py*** on the computer to be authorized, which will generate the corresponding license file ***\<hostname\>.lic***.
+    * In ***signer.py***, you will have to change the password of the private key, online '98', _it is suggested instead to implement an entry method, for example:_
 
         ```
         print('Type the password')
         password =input()
         ```
 
-    * O en ***example_4_signer_gui.py*** usted debera introducirla en el campo indicado.
+    * Or in ***example_4_signer_gui.py*** you should enter it in the indicated field.
 
-2. Dejar en el directorio del ejecutable que se desea proteger los archivos ***public.pem*** y ***license_verifier.py***.  Puede omitir a ***public.pem*** si se introdujo en la variable de indicada para ***license_verifier.py***
+2. Leave in the directory of the executable you want to protect the files ***public.pem*** and ***license_verifier.py***.  You can omit ***public.pem*** if it was entered in the variable of indicated for ***license_verifier.py***
  
-## Implementación
+## Implementation
 ### ***signer.py*** 
 ```
 from signer import Signer
@@ -70,11 +70,10 @@ if not license.check_license():
 ```
 
 ### ***keys_keeper.py*** 
-Para cript
 ```
 from license_verifier import License_Verifier
 ...
-data = "Este texto es una prueba de concepto, utilizando criptografia simétrica y de llave publica.".encode()
+data = "This text is a proof of concept, using symmetric and public-key cryptography.".encode()
 key_2_private_key = '01234567'
 key_4_symmetric_cryptography = "123456789"
 
