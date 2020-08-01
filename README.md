@@ -39,11 +39,8 @@ En el proceso se crean 3 archivos ***private.pem***, ***public.pem*** y ***\<hos
 1. Deberá ejecutar en el equipo que se va a autorizar ***signer.py*** o ***example_4_signer_gui.py***, lo que generará el archivo de licencia correspondiente ***\<hostname\>.lic***.
     * En ***signer.py***, usted deberá cambiar la contraseña de la clave privada, en línea `98`, _se suguiere en su lugar implementar un método de entrada, por ejemplo:_
 
-´´´
-print('Type the password')
-´´´
-password =input()
-´´´
+    ´print('Type the password')´
+    ´password =input()´
 
     * O en ***example_4_signer_gui.py*** usted debera introducirla en el campo indicado.
 
