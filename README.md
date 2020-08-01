@@ -5,7 +5,7 @@ The purpose is to create a system of restrictions that prevents unauthorized use
 
 Examples of use in each file .py
 
-## Pre-requisitos
+## Pre-requisites
 ```
 pip install pycryptodome
 ```
