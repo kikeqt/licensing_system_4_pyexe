@@ -53,17 +53,17 @@ class Key_keeper(object):
     def asymmetrical_decryption(self, key_2_private_key, cipher_pack):
         private_key = RSA.import_key(self._locksmith.decrypt_private_key(key_2_private_key))
         
-        tmpSince, tmpUntil = 0, private_key.size_in_bytes()
-        enc_session_key = cipher_pack[tmpSince: tmpUntil]
+        since, until = 0, private_key.size_in_bytes()
+        enc_session_key = cipher_pack[since: until]
         
-        tmpSince += private_key.size_in_bytes(); tmpUntil += 16
-        nonce = cipher_pack[tmpSince: tmpUntil]
+        since += private_key.size_in_bytes(); until += 16
+        nonce = cipher_pack[since: until]
         
-        tmpSince += 16; tmpUntil += 16
-        tag = cipher_pack[tmpSince: tmpUntil]
+        since += 16; until += 16
+        tag = cipher_pack[since: until]
         
-        tmpSince += 16
-        ciphertext = cipher_pack[tmpSince: ]
+        since += 16
+        ciphertext = cipher_pack[since: ]
 
         # Decrypt the session key with the private RSA key
         cipher_rsa = PKCS1_OAEP.new(private_key)
