@@ -68,8 +68,6 @@ class Signer(License_Verifier):
                 rsa_key = RSA.importKey(private_key)
                 signer = PKCS1_v1_5.new(rsa_key)
                 
-                # data = self._id_hardware.__str__()
-                # data = data.encode()
                 data = self._id_hardware.__str__().encode()
                 digest = SHA256.new(b64encode(data))
                 
@@ -98,7 +96,7 @@ if __name__ == '__main__':
     system('erase *.lic')
     # END Debug
     
-    # You should enter this value in some other way
+    # You should enter this value in some other way, but this is just for example
     password = 'Replace this key'
     
     license_maker = Signer(password)
