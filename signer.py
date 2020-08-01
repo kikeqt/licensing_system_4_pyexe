@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.0"
+__version__ = "$Version: 1.0.1"
 
 from base64 import b64encode
 from Crypto.Hash import SHA256
