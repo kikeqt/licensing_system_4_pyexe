@@ -1,9 +1,9 @@
 # Licensing system for Py2Exe
-Licensing system for python scripts that are packaged in windows executables, based on public cryptography.  Includes simplified AES and RSA encryption module
+Licensing system for python scripts that are packaged in windows executables, based on public cryptography.  Includes simplified AES and RSA encryption module.
 
 The purpose is to create a system of restrictions that prevents unauthorized use for internal systems.  In addition to offering a simple way to encrypt information particularly that stored in the code or that which needs to be safeguarded.
 
-Examples of use in each file .py
+Examples of use in each file .py.
 
 ## Pre-requisites
 ```
@@ -13,27 +13,27 @@ pip install pycryptodome
 ## Installation
 Download the source code of this project into the root directory of the python project you want to restrict.
 
-Or clone the project with git
+Or clone the project with git:
 ```
 git clone https://github.com/kikeqt/licensing_system_4_pyexe.git
 ```
 
 ## How it works
 1. ***signer.py*** generates an electronic signature of the equipment.  If ***private.pem*** and ***public.pem*** have not been generated, they will be generated automatically once the password is set to protect the private key, for example ***example_4_signer_gui.py***.
-2. ***license\_verifier.py*** verify the signature
+2. ***license\_verifier.py*** verify the signature.
 
 In the process 3 files are created ***private.pem***, ***public.pem*** and ***\<hostname\>.lic***.
 
  - ***private.pem*** contains the private key and is encrypted with AES in OCB mode.
 
- - ***public.pem*** contains the public key
+ - ***public.pem*** contains the public key.
 
- - ***\<hostname\>.lic*** contains digitally signed equipment data, with the private key
+ - ***\<hostname\>.lic*** contains digitally signed equipment data, with the private key.
 
 **Remarks:**
 * If you want to change the file names, they are defined in ***license_verifier.py***, lines_ '22', '24' and '46'.
 
-* If instead of opening the public and private keys from a file, you prefer to store them in the code, you will find marked where you should make the change, ***license_verifier.py*** [`42`\] and ***signer.py*** [`35`,`36`\].
+* If instead of opening the public and private keys from a file, you prefer to store them in the code, you will find marked where you should make the change, ***license_verifier.py*** [`42`\] and ***signer.py*** \[`35`,`36`\].
 
 ## Recommended use
 1. You will need to run ***signer.py*** or ***example_4_signer_gui.py*** on the computer to be authorized, which will generate the corresponding license file ***\<hostname\>.lic***.
@@ -46,7 +46,7 @@ In the process 3 files are created ***private.pem***, ***public.pem*** and ***\<
 
     * Or in ***example_4_signer_gui.py*** you should enter it in the indicated field.
 
-2. Leave in the directory of the executable you want to protect the files ***public.pem*** and ***license_verifier.py***.  You can omit ***public.pem*** if it was entered in the variable of indicated for ***license_verifier.py***
+2. Leave in the directory of the executable you want to protect the files ***public.pem*** and ***license_verifier.py***.  You can omit ***public.pem*** if it was entered in the variable of indicated for ***license_verifier.py***.
  
 ## Implementation
 ### ***signer.py*** 
