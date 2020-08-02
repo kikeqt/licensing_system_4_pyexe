@@ -1,9 +1,9 @@
 # Sistema de licencias para Py2Exe
-Sistema de licencias para scripts pitón que están empaquetados en ejecutables de Windows, basados en criptografía pública.  Incluye un módulo de cifrado AES y RSA simplificado
+Sistema de licencias para scripts pitón que están empaquetados en ejecutables de Windows, basados en criptografía pública.  Incluye un módulo de cifrado AES y RSA simplificado.
 
 El propósito es crear un sistema de restricciones que impida el uso no autorizado de los sistemas internos.  Además de ofrecer una forma sencilla de cifrar la información, en particular la que se almacena en el código o la que hay que salvaguardar.
 
-Ejemplos de uso en cada archivo .py
+Ejemplos de uso en cada archivo .py.
 
 ## Pre-requisitos
 ```
@@ -13,14 +13,14 @@ pip install pycryptodome
 ## Instalación
 Descarge el código fuente de este proyecto en el directorio raíz del proyecto python que se desea restringir.
 
-O clone el proyecto con git
+O clone el proyecto con git:
 ```
 git clone https://github.com/kikeqt/licensing_system_4_pyexe.git
 ```
 
 ## Funcionamiento
 1. ***signer.py*** genera una firma electronica del equipo.  Si no se han generado ***private.pem*** y ***public.pem*** generará automaticamente una vez que se defina la contraseña para proteger la clave privada, por ejemplo ***example_4_signer_gui.py***.
-2. ***license\_verifier.py*** verifica la firma
+2. ***license\_verifier.py*** verifica la firma.
 
 En el proceso se crean 3 archivos ***private.pem***, ***public.pem*** y ***\<hostname\>.lic***.
 
@@ -28,7 +28,7 @@ En el proceso se crean 3 archivos ***private.pem***, ***public.pem*** y ***\<hos
 
  - ***public.pem*** contiene la clave pública.
 
- - ***\<hostname\>.lic*** contiene datos del equipo firmado digitalmente, con la clave privada
+ - ***\<hostname\>.lic*** contiene datos del equipo firmado digitalmente, con la clave privada.
 
 **Observaciones:**
 * Si desea cambiar los nomres de los archivos, estos estan definidos en ***license_verifier.py***, líneas_ `22`, `24` y `46`.
@@ -46,7 +46,7 @@ En el proceso se crean 3 archivos ***private.pem***, ***public.pem*** y ***\<hos
 
     * O en ***example_4_signer_gui.py*** usted debera introducirla en el campo indicado.
 
-2. Dejar en el directorio del ejecutable que se desea proteger los archivos ***public.pem*** y ***license_verifier.py***.  Puede omitir a ***public.pem*** si se introdujo en la variable de indicada para ***license_verifier.py***
+2. Dejar en el directorio del ejecutable que se desea proteger los archivos ***public.pem*** y ***license_verifier.py***.  Puede omitir a ***public.pem*** si se introdujo en la variable de indicada para ***license_verifier.py***.
  
 ## Implementación
 ### ***signer.py*** 
