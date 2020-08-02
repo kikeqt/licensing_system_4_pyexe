@@ -1,4 +1,4 @@
-__version__ = "$Version: 0.1.0"
+__version__ = "$Version: 0.1.1"
 
 from base64 import b64encode
 from base64 import b64decode
@@ -35,7 +35,7 @@ class License_Verifier(object):
         
         # BEGIN Illustrative example, but you should enter the public key directly in
         # the variable self._public_key
-        self._load_key_files()
+        self._add_2_status(self._load_key_files())
         # END Illustrative example
         
         # I recommend this way
@@ -51,25 +51,26 @@ class License_Verifier(object):
         
         time_stamp = datetime.now().strftime("%y/%m/%d %H:%M:%S.%f")[:-4]
         
-        if type_interface == "<class 'NoneType'>":
-            print(f"{time_stamp}  {message}")
-            
-        elif type_interface == "<class 'tkinter.Listbox'>":
-            self._external_object.insert(tk.END, f"{time_stamp}  {message}")
+        if message != None:
+            if type_interface == "<class 'NoneType'>":
+                print(f"{time_stamp}  {message}")
+                
+            elif type_interface == "<class 'tkinter.Listbox'>":
+                self._external_object.insert(tk.END, f"{time_stamp}  {message}")
 
-        elif type_interface == "<class 'tkinter.Text'>":
-            self._external_object.insert(tk.END, f"{time_stamp}  {message}\n")
+            elif type_interface == "<class 'tkinter.Text'>":
+                self._external_object.insert(tk.END, f"{time_stamp}  {message}\n")
+            
+            else:
+                print(f'Fatal error: How to use this object {type(self._external_object)}')
+                exit()
         
-        else:
-            print(f'Fatal error: How to use this object {type(self._external_object)}')
-            exit()
-	
-        self._status += message
+            self._status += message
         
     def _load_key_files(self):
         self._add_2_status("Loading public key")
         
-        self._locksmith.load_public_key(self._public_key_file)
+        self._add_2_status(self._locksmith.load_public_key(self._public_key_file))
 
         self._add_2_status("\tSuccessfully")
 
@@ -98,7 +99,7 @@ class License_Verifier(object):
                 return False
 
         else:
-            self._add_2_status("You do not have a valid license")
+            self._add_2_status(f"The file was not found: {self._license_file}")
             return False
 
 
@@ -109,7 +110,7 @@ if __name__ == '__main__':
     license = License_Verifier()
     
     if license.check_license():
-        print('Licencia valida')
+        print('Valid license')
         
     else:
-        print('Licencia no válida')
+        print('Invalid license')
