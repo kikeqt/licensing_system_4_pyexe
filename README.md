@@ -31,7 +31,7 @@ In the process 3 files are created ***private.pem***, ***public.pem*** and ***\<
  - ***\<hostname\>.lic*** contains digitally signed equipment data, with the private key.
 
 **Remarks:**
-* If you want to change the file names, they are defined in ***license_verifier.py***, lines_ '22', '24' and '46'.
+* If you want to change the file names, they are defined in ***license_verifier.py***, lines_ `22`, `24` and `46`.
 
 * If instead of opening the public and private keys from a file, you prefer to store them in the code, you will find marked where you should make the change, ***license_verifier.py*** [`42`\] and ***signer.py*** \[`35`,`36`\].
 
