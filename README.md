@@ -37,7 +37,7 @@ In the process 3 files are created ***private.pem***, ***public.pem*** and ***\<
 
 ## Recommended use
 1. You will need to run ***signer.py*** or ***example_4_signer_gui.py*** on the computer to be authorized, which will generate the corresponding license file ***\<hostname\>.lic***.
-    * In ***signer.py***, you will have to change the password of the private key, online '98', _it is suggested instead to implement an entry method, for example:_
+    * In ***signer.py***, you will have to change the password of the private key, online `98`, _it is suggested instead to implement an entry method, for example:_
 
         ```
         print('Type the password')
