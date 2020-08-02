@@ -1,8 +1,9 @@
-__version__ = "$Version: 0.1.3"
+__version__ = "$Version: 0.1.4"
 
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
+from os.path import exists
 
 
 class Locksmith(object):
@@ -76,14 +77,26 @@ class Locksmith(object):
 
 
     def load_private_key(self, private_key_file_name: str="private.pem"):
-        with open(private_key_file_name, "rb") as file:
-            self._private_key = file.read()
+        if exists(private_key_file_name):
+            with open(private_key_file_name, "rb") as file:
+                self._private_key = file.read()
+                
+            return None
+        
+        else:
+            return f"The file was not found: {private_key_file_name}"
 
     
     def load_public_key(self, public_key_file_name: str="public.pem"):
-        with open(public_key_file_name, "rb") as file:
-            public_key = file.read()
-            self._public_key = public_key.decode()
+        if exists(public_key_file_name):
+            with open(public_key_file_name, "rb") as file:
+                public_key = file.read()
+                self._public_key = public_key.decode()
+                
+            return None
+        
+        else:
+            return f"The file was not found: {private_key_file_name}"
 
 
     def save_private_key(self, private_key_file_name: str="private.pem"):
