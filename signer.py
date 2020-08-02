@@ -1,4 +1,4 @@
-__version__ = "$Version: 1.0.1"
+__version__ = "$Version: 1.0.2"
 
 from base64 import b64encode
 from Crypto.Hash import SHA256
@@ -53,7 +53,7 @@ class Signer(License_Verifier):
         
         self._add_2_status("Loading private key")
         
-        self._locksmith.load_private_key(self._private_key_file)
+        self._add_2_status(self._locksmith.load_private_key(self._private_key_file))
             
         self._add_2_status("\tSuccessfully")
     
